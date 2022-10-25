@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package substrait.ibis;
+
+import "substrait/algebra.proto";
+
+option csharp_namespace = "Arrow.Substrait";
+option go_package = "github.com/apache/arrow/substrait";
+option java_multiple_files = true;
+option java_package = "io.arrow.substrait";
+
+message AsOfJoinRel {
+  repeated AsOfJoinKeys input_keys = 1;
+  int64 tolerance = 2;
+
+  message AsOfJoinKeys {
+    Expression on = 1;
+    repeated Expression by = 2;
+  }
+}

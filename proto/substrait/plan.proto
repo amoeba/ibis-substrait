@@ -5,6 +5,7 @@ package substrait;
 
 import "substrait/algebra.proto";
 import "substrait/extensions/extensions.proto";
+import "substrait/extension_rel.proto";
 
 option csharp_namespace = "Substrait.Protobuf";
 option go_package = "github.com/substrait-io/substrait-go/proto";
