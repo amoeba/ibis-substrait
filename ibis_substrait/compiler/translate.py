@@ -20,13 +20,13 @@ import ibis.expr.operations as ops
 import ibis.expr.schema as sch
 import ibis.expr.types as ir
 import toolz
+from google.protobuf.any_pb2 import Any as pb2_any
 from ibis import util
 from ibis.util import to_op_dag
 
-from google.protobuf.any_pb2 import Any as pb2_any
+from ..proto import extension_rels_pb2 as extrel
 from ..proto.substrait.ibis import algebra_pb2 as stalg
 from ..proto.substrait.ibis import type_pb2 as stt
-from ..proto.substrait.ibis import extension_rel_pb2 as extrel
 from .core import SubstraitCompiler, _get_fields
 
 T = TypeVar("T")
@@ -870,12 +870,12 @@ def asof_join(
     left = pred.op().left
     right = pred.op().right
 
-    left_tr = extrel.AsOfJoinRel.AsOfJoinKeys(on=translate(left.op(), expr, compiler))
-    right_tr = extrel.AsOfJoinRel.AsOfJoinKeys(on=translate(right.op(), expr, compiler))
+    left_tr = extrel.AsOfJoinRel.AsOfJoinKey(on=translate(left.op(), expr, compiler))
+    right_tr = extrel.AsOfJoinRel.AsOfJoinKey(on=translate(right.op(), expr, compiler))
 
     detail = pb2_any()
     detail.Pack(extrel.AsOfJoinRel(
-                    input_keys=[left_tr, right_tr],
+                    keys=[left_tr, right_tr],
                     tolerance=100
                 ),
                 "" # HACK: Clear out prefix from @type

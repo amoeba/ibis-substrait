@@ -1,4 +1,3 @@
-from . import extension_rel_pb2
 from . import capabilities_pb2
 from . import function_pb2
 from . import extensions

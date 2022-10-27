@@ -6,26 +6,30 @@ import builtins
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
-from ... import substrait
+from . import substrait
 import typing
 import typing_extensions
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 class AsOfJoinRel(google.protobuf.message.Message):
+    """As-Of-Join relation"""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    class AsOfJoinKeys(google.protobuf.message.Message):
+    class AsOfJoinKey(google.protobuf.message.Message):
+        """As-Of-Join key"""
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
         ON_FIELD_NUMBER: builtins.int
         BY_FIELD_NUMBER: builtins.int
 
         @property
         def on(self) -> substrait.ibis.algebra_pb2.Expression:
-            ...
+            """A field reference defining the on-key"""
+            pass
 
         @property
         def by(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[substrait.ibis.algebra_pb2.Expression]:
-            ...
+            """A set of field references defining the by-key"""
+            pass
 
         def __init__(self, *, on: typing.Optional[substrait.ibis.algebra_pb2.Expression]=..., by: typing.Optional[typing.Iterable[substrait.ibis.algebra_pb2.Expression]]=...) -> None:
             ...
@@ -35,17 +39,19 @@ class AsOfJoinRel(google.protobuf.message.Message):
 
         def ClearField(self, field_name: typing_extensions.Literal['by', b'by', 'on', b'on']) -> None:
             ...
-    INPUT_KEYS_FIELD_NUMBER: builtins.int
+    KEYS_FIELD_NUMBER: builtins.int
     TOLERANCE_FIELD_NUMBER: builtins.int
 
     @property
-    def input_keys(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___AsOfJoinRel.AsOfJoinKeys]:
-        ...
+    def keys(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___AsOfJoinRel.AsOfJoinKey]:
+        """One key per input relation, each key describing how to join the corresponding input"""
+        pass
     tolerance: builtins.int
+    'As-Of tolerance, in units of the on-key'
 
-    def __init__(self, *, input_keys: typing.Optional[typing.Iterable[global___AsOfJoinRel.AsOfJoinKeys]]=..., tolerance: builtins.int=...) -> None:
+    def __init__(self, *, keys: typing.Optional[typing.Iterable[global___AsOfJoinRel.AsOfJoinKey]]=..., tolerance: builtins.int=...) -> None:
         ...
 
-    def ClearField(self, field_name: typing_extensions.Literal['input_keys', b'input_keys', 'tolerance', b'tolerance']) -> None:
+    def ClearField(self, field_name: typing_extensions.Literal['keys', b'keys', 'tolerance', b'tolerance']) -> None:
         ...
 global___AsOfJoinRel = AsOfJoinRel
